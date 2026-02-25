@@ -1,0 +1,48 @@
+PODS:
+  - CryptoSwift (1.6.0)
+  - Flutter (1.0.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - iQRDNI (1.0.3):
+    - CryptoSwift (= 1.6.0)
+    - iQRDNI/Core (= 1.0.3)
+  - iQRDNI/Core (1.0.3):
+    - CryptoSwift (= 1.6.0)
+  - permission_handler_apple (9.3.0):
+    - Flutter
+  - qrdniflut (0.0.1):
+    - Flutter
+    - iQRDNI (~> 1.0.3)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - qrdniflut (from `.symlinks/plugins/qrdniflut/ios`)
+
+SPEC REPOS:
+  trunk:
+    - CryptoSwift
+    - iQRDNI
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  qrdniflut:
+    :path: ".symlinks/plugins/qrdniflut/ios"
+
+SPEC CHECKSUMS:
+  CryptoSwift: 562f8eceb40e80796fffc668b0cad9313284cfa6
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  iQRDNI: 68d2d51a8a17c17bb8aef6e0867db77f19b60381
+  permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+  qrdniflut: 441b53c7ae21081a162db48bee22035ff5e76163
+
+PODFILE CHECKSUM: 04a17f70e86ae54ce75f0cc82953c2158da149e8
+
+COCOAPODS: 1.16.2
