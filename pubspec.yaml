@@ -1,8 +1,8 @@
 name: qrdniflut
 description: "Plugin para la lectura y validación de códigos QR generados por la app MiDNI. Disponible para android e iOS."
-version: 0.0.1
+version: 1.0.1
 homepage: https://cqesolutions.com
-repository: https://github.com/diegocidm4/QRDNIeFlutter
+repository: https://github.com/diegocidm4/qrdniflutter
 
 environment:
   sdk: ^3.9.2
