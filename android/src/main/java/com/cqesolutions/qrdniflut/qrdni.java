@@ -3,7 +3,9 @@ package com.cqesolutions.qrdniflut;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Base64;
-import java.util.HashMap; 
+import android.util.Log;
+
+import java.util.HashMap;
 import java.util.Map;      
 import org.json.JSONObject;
 
@@ -98,6 +100,7 @@ public class qrdni {
         if (data.verificationResult != null) {
             String statusNative = data.verificationResult.status.name(); // .name() para obtener el String del Enum
 
+            Log.d("QRDNI_DEBUG", "Estado nativo: " + statusNative);
             switch (statusNative) {
                 case "VALID":
                     verificationJson.put("status", "VALID");
@@ -110,8 +113,11 @@ public class qrdni {
                 case "NO_CERTIFICATES":
                     verificationJson.put("status", "NO_CERTIFICATES");
                     break;
-                case "EXPIRED_QR":
-                    verificationJson.put("status", "EXPIRED_QR");
+                case "INVALID_QR":
+                    verificationJson.put("status", "INVALID_QR");
+                    break;
+                case "EXPIRATED_QR":
+                    verificationJson.put("status", "EXPIRATED_QR");
                     break;
                 default:
                     verificationJson.put("status", "INVALID");
