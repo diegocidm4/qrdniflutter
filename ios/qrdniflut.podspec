@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'qrdniflut'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'Plugin para lectura y validación de códigos QR generados por la app MiDNI'
   s.description      = 'Plugin para lectura y validación de códigos QR generados por la app MiDNI'
   s.homepage         = 'https://github.com/diegocidm4/qrdniflutter.git'

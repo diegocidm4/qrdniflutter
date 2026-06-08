@@ -112,6 +112,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lecturaQR"),
                                         object: nil,
                                         userInfo: parametros)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
 
     func extractPayload(from object: AVMetadataMachineReadableCodeObject) -> Data? {

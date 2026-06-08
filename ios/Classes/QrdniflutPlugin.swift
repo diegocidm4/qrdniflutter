@@ -55,7 +55,7 @@ public class QrdniflutPlugin: NSObject, FlutterPlugin {
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(self.handleScannerResult(_:)), name: NSNotification.Name("lecturaQR"), object: nil)
                 
-                if let rootVC = UIApplication.shared.delegate?.window??.rootViewController {
+                if let rootVC = self.topViewController() {
                     rootVC.present(scannerVC, animated: true)
                 }
             }
@@ -65,26 +65,52 @@ public class QrdniflutPlugin: NSObject, FlutterPlugin {
         }
     }
 
+    private func topViewController() -> UIViewController? {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first { $0.activationState == .foregroundActive } as? UIWindowScene
+            ?? scenes.first as? UIWindowScene
+        let keyWindow = windowScene?.windows.first { $0.isKeyWindow } ?? windowScene?.windows.first
+        var top = keyWindow?.rootViewController
+        while let presented = top?.presentedViewController {
+            top = presented
+        }
+        return top
+    }
+
     @objc func handleScannerResult(_ notification: Notification) {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("lecturaQR"), object: nil)
-        
+
         guard let res = self.pendingResult else { return }
         self.pendingResult = nil
 
-        guard let userInfo = notification.userInfo,
-              let qrBase64 = userInfo["qrcode"] as? String else {
+        // Cerrar el escáner; si no, la cámara se queda congelada en pantalla
+        DispatchQueue.main.async {
+            UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true)
+        }
+
+        guard let userInfo = notification.userInfo else {
             res(FlutterError(code: "SCAN_ERROR", message: "Error al obtener datos", details: nil))
             return
         }
 
-        if let qrData = Data(base64Encoded: qrBase64) {
-            if let resultadoJson = self.implementation.validaMiDNIQR(datosQR: qrData) {
-                res(resultadoJson)
-            } else {
-                res(FlutterError(code: "VALIDATION_FAILED", message: "Fallo en validación", details: nil))
-            }
+        // returnString == false -> el escáner envía Data cruda en "qrcodeData"
+        // returnString == true  -> envía un String en "qrcode"
+        var qrData: Data?
+        if let data = userInfo["qrcodeData"] as? Data {
+            qrData = data
+        } else if let str = userInfo["qrcode"] as? String {
+            qrData = Data(base64Encoded: str)
+        }
+
+        guard let datos = qrData else {
+            res(FlutterError(code: "INVALID_DATA", message: "Datos del QR no válidos", details: nil))
+            return
+        }
+
+        if let resultadoJson = self.implementation.validaMiDNIQR(datosQR: datos) {
+            res(resultadoJson)
         } else {
-            res(FlutterError(code: "INVALID_BASE64", message: "Base64 corrupto", details: nil))
+            res(FlutterError(code: "VALIDATION_FAILED", message: "Fallo en validación", details: nil))
         }
     }
 }
