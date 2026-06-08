@@ -80,7 +80,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     
     // Dependencias de escaneo y UI
-    implementation ('me.dm7.barcodescanner:zxing:1.9.8') {
+    implementation ('com.journeyapps:zxing-android-embedded:4.3.0'){
         exclude group: 'com.android.support'
     }
     implementation 'androidx.appcompat:appcompat:1.7.0'
